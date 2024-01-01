@@ -31,7 +31,7 @@ jobs:
 
       - name: Configure gcloud auth for docker
         run: |
-          gcloud auth configure-docker -y
+          gcloud auth configure-docker
       
       - name: Build Docker image
         run: |
