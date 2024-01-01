@@ -2,7 +2,7 @@ namespace: services
 appname: webapp1
 replicaCount: 1
 image:
-  artficate_repo: gcr.io/fabled-era-408608/artifact-repo-dev
+  artficate_repo: europe-west1-docker.pkg.dev/fabled-era-408608/artifact-repo-dev
   repository: webapp1
   tag: latest
   pullPolicy: IfNotPresent
@@ -21,4 +21,3 @@ secretname: websitesecret
 ingress:
   host: dlgkedemo.com
   path: /
-
