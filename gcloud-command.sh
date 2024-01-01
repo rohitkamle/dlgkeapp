@@ -1,28 +1,19 @@
 PROJECT_ID="fabled-era-408608"
+SA_NAME="dlgkedemosagkapp"
 WIF_POOL_NAME="dlwifpoolgkeapp"
 WIF_POOL_DISPLAY_NAME="DL DEMO WIF POOL for GKE Admin"
 WIF_PROVIDER_NAME="dlwifprovidergkeapp"
-SA_NAME="dlgkedemosagkapp"
 SA_DISPLAY_NAME="DL DEMO SERVICE ACCOUNT FOR GITHUB ACTION for GKE app"
 GITHUB_REPO="rohitkamle/dlgkeapp"
 
-
-echo $PROJECT_ID
-echo $PROJECT_ID
-echo $WIF_POOL_NAME
-echo $WIF_POOL_DISPLAY_NAME
-echo $WIF_PROVIDER_NAME
-echo $SA_NAME
-echo $SA_DISPLAY_NAME
-echo $GITHUB_REPO
 
 # CREATE SERVICE ACCOUNT
 gcloud iam service-accounts create $SA_NAME --description="Service account for Terraform GCP deployment" --display-name="$SA_DISPLAY_NAME"
 
 # ASSIGN PERSMISSIONS TO SERVICE ACCOUNT
 gcloud projects add-iam-policy-binding $PROJECT_ID --member="serviceAccount:$SA_NAME@$PROJECT_ID.iam.gserviceaccount.com" --role="roles/container.developer"
-# gcloud projects add-iam-policy-binding $PROJECT_ID --member="serviceAccount:$SA_NAME@$PROJECT_ID.iam.gserviceaccount.com" --role="roles/iam.serviceAccountTokenCreator"
-# gcloud projects add-iam-policy-binding $PROJECT_ID --member="serviceAccount:$SA_NAME@$PROJECT_ID.iam.gserviceaccount.com" --role="roles/iam.serviceAccountUser"
+gcloud projects add-iam-policy-binding $PROJECT_ID --member="serviceAccount:$SA_NAME@$PROJECT_ID.iam.gserviceaccount.com" --role="roles/iam.serviceAccountUser"
+gcloud projects add-iam-policy-binding $PROJECT_ID --member="serviceAccount:$SA_NAME@$PROJECT_ID.iam.gserviceaccount.com" --role="roles/artifactregistry.createOnPushWriter"
 
 # CREATED MANAGED IDENTITY POOL AND PROVIDER
 gcloud iam workload-identity-pools create $WIF_POOL_NAME --project $PROJECT_ID --location "global" --display-name "$WIF_POOL_DISPLAY_NAME"
@@ -50,6 +41,6 @@ echo "GCP_SERVICE_ACCOUNT = $GCP_SERVICE_ACCOUNT"
 
 
 
-
+fabled-era-408608-artifact-repo-dev
 
 

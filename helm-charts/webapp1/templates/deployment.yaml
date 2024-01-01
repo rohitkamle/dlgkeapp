@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: {{ .Values.appname }}
-        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        image: "{{ .Values.image.artficate_repo }}/{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         resources:
           limits:
             cpu: "{{ .Values.resources.limits.cpu }}"

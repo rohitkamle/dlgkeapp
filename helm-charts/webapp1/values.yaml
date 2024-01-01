@@ -2,7 +2,8 @@ namespace: services
 appname: webapp1
 replicaCount: 1
 image:
-  repository: nginx
+  artficate_repo: fabled-era-408608-artifact-repo-dev
+  repository: webapp1
   tag: latest
   pullPolicy: IfNotPresent
 resources:
