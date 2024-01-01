@@ -2,14 +2,14 @@ namespace: services
 appname: webapp1
 replicaCount: 1
 image:
-  artficate_repo: gcr.io/fabled-era-408608/artifact-repo-dev/
+  artficate_repo: gcr.io/fabled-era-408608/artifact-repo-dev
   repository: webapp1
   tag: latest
   pullPolicy: IfNotPresent
 resources:
   limits:
-    cpu: "0.5"
-    memory: "256Mi"
+    cpu: "0.1"
+    memory: "128Mi"
   requests:
     cpu: "0.1"
     memory: "128Mi"

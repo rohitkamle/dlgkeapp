@@ -7,7 +7,7 @@ spec:
   ingressClassName: nginx
   tls:
   - hosts:
-    - {{ .Values.ingress.host }} 
+    - '{{ .Values.appname }}.{{ .Values.ingress.host }}'
     secretName: {{ .Values.secretname }} 
   rules:
   - host: '{{ .Values.appname }}.{{ .Values.ingress.host }}'
