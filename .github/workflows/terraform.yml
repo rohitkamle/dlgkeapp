@@ -1,0 +1,62 @@
+name: Terraform App Deployment
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+
+  terraform:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+    env:
+      GCP_REGION: europe-west1
+      GKE_CLUSTER_NAME: gke-dlgkedmo-dev
+
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - id: 'auth'
+        uses: 'google-github-actions/auth@v2'
+        with:
+          token_format: 'access_token'
+          workload_identity_provider: '${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}' 
+          service_account: '${{ secrets.GCP_SERVICE_ACCOUNT }}'
+      # install gcloud sdk to run kubectl and helm commands ..
+
+      - name: 'Setup cloud SDK'
+        uses: 'google-github-actions/setup-gcloud@v2'
+
+      - name: Configure kubectl
+        run: |
+          gcloud container clusters get-credentials $GKE_CLUSTER_NAME --region $GCP_REGION
+          gcloud components install gke-gcloud-auth-plugin
+      
+      - name: Install Helm
+        run: |
+          curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
+          chmod 700 get_helm.sh
+          ./get_helm.sh
+
+      - name: Deploy K8 App Services
+        run: |
+
+         
+          nsservices="services"
+          if ! kubectl get namespace "${nsservices}" &> /dev/null; then
+            kubectl create namespace "${nsservices}"
+          else
+            echo "Namespace '${nsservices}' already exists."
+          fi
+          
+          # Running helm charts
+
+          helm upgrade --install webapp1 ./helm-charts/webapp1
+
+          echo "Webapp1 server url is http://webapp1.dlgkedemo.com and ip address is "
+          kubectl get services -n ingress-nginx ingress-nginx-controller -o=jsonpath='{.status.loadBalancer.ingress[0].ip}'
