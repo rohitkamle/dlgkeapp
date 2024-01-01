@@ -32,7 +32,7 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t fabled-era-408608-artifact-repo-dev/webapp1:latest .
+          docker build -t fabled-era-408608-artifact-repo-dev/webapp1:latest ./webapp1/.
 
       - name: Push Docker image to Artifact Registry
         run: |

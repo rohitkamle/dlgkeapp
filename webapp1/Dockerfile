@@ -2,7 +2,7 @@
 FROM nginx:latest
 
 # Copy the HTML file into the NGINX default HTML directory
-COPY webapp1-code/index.html /usr/share/nginx/html
+COPY source/index.html /usr/share/nginx/html
 
 # Optional: If you have additional static assets, copy them to the NGINX directory
 # COPY static /usr/share/nginx/html/static
