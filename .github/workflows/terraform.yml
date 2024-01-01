@@ -29,16 +29,17 @@ jobs:
           service_account: '${{ secrets.GCP_SERVICE_ACCOUNT }}'
       # install gcloud sdk to run kubectl and helm commands ..
 
-
+      - name: Configure gcloud auth for docker
+        run: |
+          gcloud auth configure-docker -y
+      
       - name: Build Docker image
         run: |
-          docker build -t gcr.io/fabled-era-408608/fabled-era-408608-artifact-repo-dev/webapp1:latest ./webapp1/.
-          docker push gcr.io/fabled-era-408608/fabled-era-408608-artifact-repo-dev/webapp1:latest
+          docker build -t gcr.io/fabled-era-408608/artifact-repo-dev/webapp1:latest ./webapp1/.
 
       - name: Push Docker image to Artifact Registry
         run: |
-          docker push fabled-era-408608-artifact-repo-dev/webappp1:${{ github.sha }}
-
+          docker push gcr.io/fabled-era-408608/artifact-repo-dev/webapp1:latest
 
       - name: 'Setup cloud SDK'
         uses: 'google-github-actions/setup-gcloud@v2'

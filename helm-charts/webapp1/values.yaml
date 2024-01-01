@@ -2,7 +2,7 @@ namespace: services
 appname: webapp1
 replicaCount: 1
 image:
-  artficate_repo: fabled-era-408608-artifact-repo-dev
+  artficate_repo: gcr.io/fabled-era-408608/artifact-repo-dev/
   repository: webapp1
   tag: latest
   pullPolicy: IfNotPresent
