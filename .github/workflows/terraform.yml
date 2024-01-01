@@ -53,9 +53,6 @@ jobs:
           else
             echo "Namespace '${nsservices}' already exists."
           fi
-
-
-          kubectl create namespace webapplications
           # Running helm charts
 
           helm upgrade --install webapp1 ./helm-charts/webapp1
