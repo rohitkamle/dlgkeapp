@@ -15,6 +15,7 @@ jobs:
     env:
       GCP_REGION: europe-west1
       GKE_CLUSTER_NAME: gke-dlgkedmo-dev
+      ARTIFACT_URL: europe-west1-docker.pkg.dev/fabled-era-408608/artifact-repo-dev
 
 
     steps:
@@ -35,11 +36,11 @@ jobs:
       
       - name: Build Docker image
         run: |
-          docker build -t europe-west1-docker.pkg.dev/fabled-era-408608/artifact-repo-dev/webapp1:latest ./webapp1/.
+          docker build -t $ARTIFACT_URL/webapp1:latest ./webapp1/.
 
       - name: Push Docker image to Artifact Registry
         run: |
-          docker push europe-west1-docker.pkg.dev/fabled-era-408608/artifact-repo-dev/webapp1:latest
+          docker push $ARTIFACT_URL/webapp1:latest
 
       - name: 'Setup cloud SDK'
         uses: 'google-github-actions/setup-gcloud@v2'
